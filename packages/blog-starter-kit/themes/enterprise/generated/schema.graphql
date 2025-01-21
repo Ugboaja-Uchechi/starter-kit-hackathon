@@ -1484,6 +1484,8 @@ type DocumentationNavbarColumn implements Node {
   items: [DocumentationNavbarItem!]!
   """The label of the column."""
   label: String!
+  """The logo of the column."""
+  logo: URL
   """The date the column was last updated."""
   updatedAt: DateTime
 }
@@ -3962,6 +3964,13 @@ type PostPreferences {
   stickCoverToBottom: Boolean!
 }
 
+enum PostSortBy {
+  """Sorts posts by date published in ascending order."""
+  DATE_PUBLISHED_ASC
+  """Sorts posts by date published in descending order."""
+  DATE_PUBLISHED_DESC
+}
+
 """
 Contains the publication's preferences for layout, theme and other personalisations.
 """
@@ -4658,6 +4667,10 @@ input PublicationPostConnectionFilter {
   deletedOnly: Boolean
   """Remove pinned post from the result set."""
   excludePinnedPost: Boolean
+  """Tags AND filter. All tags must be present in the post."""
+  requiredTagSlugs: [String!]
+  """Tags AND filter. All tags must be present in the post."""
+  requiredTags: [ID!]
   """
   Filtering by tag slugs and tag IDs will return posts that match either of the filters.
   
@@ -4932,6 +4945,8 @@ type Query {
     filter: SearchPostsOfPublicationFilter!
     """The number of items to be returned per page."""
     first: Int!
+    """The sort order."""
+    sortBy: PostSortBy
   ): SearchPostConnection!
   """Returns tag details by its slug."""
   tag(
@@ -5428,6 +5443,8 @@ input SearchPostsOfPublicationFilter {
   publicationId: ObjectId!
   """The query to be searched in post."""
   query: String
+  """Tags AND filter. All tags must be present in the post."""
+  requiredTagsIds: [ID!]
   """An array of tag Ids to filter the posts."""
   tagIds: [ID!]
   """Filter based on time range."""

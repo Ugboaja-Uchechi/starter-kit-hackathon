@@ -1498,6 +1498,8 @@ export type DocumentationNavbarColumn = Node & {
   items: Array<DocumentationNavbarItem>;
   /** The label of the column. */
   label: Scalars['String']['output'];
+  /** The logo of the column. */
+  logo?: Maybe<Scalars['URL']['output']>;
   /** The date the column was last updated. */
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
@@ -4455,6 +4457,13 @@ export type PostPreferences = {
   stickCoverToBottom: Scalars['Boolean']['output'];
 };
 
+export enum PostSortBy {
+  /** Sorts posts by date published in ascending order. */
+  DatePublishedAsc = 'DATE_PUBLISHED_ASC',
+  /** Sorts posts by date published in descending order. */
+  DatePublishedDesc = 'DATE_PUBLISHED_DESC'
+}
+
 /** Contains the publication's preferences for layout, theme and other personalisations. */
 export type Preferences = {
   __typename?: 'Preferences';
@@ -5214,6 +5223,10 @@ export type PublicationPostConnectionFilter = {
   deletedOnly?: InputMaybe<Scalars['Boolean']['input']>;
   /** Remove pinned post from the result set. */
   excludePinnedPost?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Tags AND filter. All tags must be present in the post. */
+  requiredTagSlugs?: InputMaybe<Array<Scalars['String']['input']>>;
+  /** Tags AND filter. All tags must be present in the post. */
+  requiredTags?: InputMaybe<Array<Scalars['ID']['input']>>;
   /**
    * Filtering by tag slugs and tag IDs will return posts that match either of the filters.
    *
@@ -5517,6 +5530,7 @@ export type QuerySearchPostsOfPublicationArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
   filter: SearchPostsOfPublicationFilter;
   first: Scalars['Int']['input'];
+  sortBy?: InputMaybe<PostSortBy>;
 };
 
 
@@ -6028,6 +6042,8 @@ export type SearchPostsOfPublicationFilter = {
   publicationId: Scalars['ObjectId']['input'];
   /** The query to be searched in post. */
   query?: InputMaybe<Scalars['String']['input']>;
+  /** Tags AND filter. All tags must be present in the post. */
+  requiredTagsIds?: InputMaybe<Array<Scalars['ID']['input']>>;
   /** An array of tag Ids to filter the posts. */
   tagIds?: InputMaybe<Array<Scalars['ID']['input']>>;
   /** Filter based on time range. */
