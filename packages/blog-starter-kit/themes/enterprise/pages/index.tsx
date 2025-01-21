@@ -120,9 +120,13 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 						}}
 					/>
 				</Head>
+				<div className='px-5'>
+					<Navbar />
+				</div>
+
 				<Header />
 				<Container className="flex flex-col items-stretch gap-10 px-5 pb-10">
-					<Navbar />
+
 
 					{allPosts.length === 0 && (
 						<div className="grid grid-cols-1 py-20 lg:grid-cols-3">
@@ -152,7 +156,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 						<div className="col-span-1 flex flex-col gap-6">{secondaryPosts}</div>
 					</div>
 
-					{allPosts.length > 0 && (
+					{/* {allPosts.length > 0 && (
 						<div className="bg-primary-50 grid grid-cols-4 rounded-lg px-5 py-5 dark:bg-neutral-900 md:py-10">
 							<div className="col-span-full md:col-span-2 md:col-start-2">
 								<h2 className="text-primary-600 dark:text-primary-500 mb-5 text-center text-lg font-semibold">
@@ -161,7 +165,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 								<SubscribeForm />
 							</div>
 						</div>
-					)}
+					)} */}
 
 					{morePosts.length > 0 && (
 						<>
